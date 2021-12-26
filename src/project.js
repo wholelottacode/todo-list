@@ -4,6 +4,7 @@ export class Project {
   constructor(name) {
     this._name = name
     this._id = uuidv4()
+    this._todos = []
   }
 
   get name() {
@@ -12,5 +13,13 @@ export class Project {
 
   get id() {
     return this._id
+  }
+
+  get todos() {
+    return this._todos
+  }
+
+  addTodo(todo) {
+    this._todos.push(todo)
   }
 }
