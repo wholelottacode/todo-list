@@ -1,10 +1,12 @@
 import { Project } from "./project"
 import { Todo } from './todo'
+import { DisplayController } from './display-controller'
 
-const science = new Project('Biology 101')
-console.log(typeof science.id, science.name)
+const projects = []
+for(let i = 1; i <= 5; i++) {
+  projects.push(new Project(`Project ${i}`))
+}
 
-const todo = new Todo('Laundry', '12/27/2021', 'high', false)
-console.log(todo.details())
-science.addTodo(todo)
-console.log(science.todos)
+const dc = new DisplayController()
+projects.forEach(project => dc.projectManager.addProject(project))
+console.log(dc)
