@@ -1,6 +1,7 @@
 import { ProjectManager } from './project-manager'
 import { Project } from './project'
 import { createProjectComponent, createProjectFormComponent } from './components'
+import { Todo } from './todo'
 
 export class DisplayController {
   constructor() {
@@ -8,8 +9,12 @@ export class DisplayController {
     for(let i = 1; i <= 3; i++) {
       projects.push(new Project(`Project ${i}`))
     }
+    for(let i = 1; i <= 5; i++) {
+      projects[0].addTodo(new Todo(`Todo ${i}`))
+    }
     this._projectManager = new ProjectManager()
     projects.forEach(project => this._projectManager.addProject(project))
+    console.log(this._projectManager)
     this.setup()
   }
 
