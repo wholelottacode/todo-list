@@ -1,11 +1,11 @@
 import { ProjectManager } from './project-manager'
 import { Project } from './project'
-import { createProjectComponent, createProjectFormComponent } from './components' 
+import { createProjectComponent, createProjectFormComponent } from './components'
 
 export class DisplayController {
   constructor() {
     const projects = []
-    for(let i = 1; i <= 5; i++) {
+    for(let i = 1; i <= 3; i++) {
       projects.push(new Project(`Project ${i}`))
     }
     this._projectManager = new ProjectManager()
@@ -24,15 +24,31 @@ export class DisplayController {
 
   displayProjects() {
     const body = document.querySelector('body')
+    const container = document.createElement('section')
+    container.setAttribute('id', 'projects')
     this._projectManager.projects.forEach(project => {
       let newProjectComponent = createProjectComponent(project)
-      body.appendChild(newProjectComponent)
+      container.appendChild(newProjectComponent)
     })
+    body.appendChild(container)
   }
 
   displayProjectForm() {
     const body = document.querySelector('body')
     const form = createProjectFormComponent()
+
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      const form = e.target
+      const input = form.querySelector('input[type=string]')
+      const newProject = new Project(input.value)
+      input.value = ''
+      this.projectManager.addProject(newProject)
+      const projects = document.querySelector('#projects')
+      projects.appendChild(createProjectComponent(newProject))
+    }
+
+    form.addEventListener('submit', handleSubmit)
     body.appendChild(form)
   }
 
